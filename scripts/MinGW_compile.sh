@@ -3,7 +3,7 @@
 set -e
 
 BUILD_DIR="build"
-GENERATOR="Unix Makefiles"
+GENERATOR="MinGW Makefiles"
 
 function usage {
     echo "Usage: $0 [clean]"

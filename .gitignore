@@ -1,6 +1,7 @@
 # Directories
 
 [Bb]uild
+[Tt]esting
 .vscode/
 
 # Files

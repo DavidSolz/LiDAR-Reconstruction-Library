@@ -3,7 +3,12 @@
 
 #include <cstring>
 #include <cstdint>
+#include <algorithm>
 #include <cmath>
+
+#ifdef __AVX__
+#include <immintrin.h>
+#endif
 
 class Matrix4
 {
@@ -21,10 +26,21 @@ class Matrix4
 
     const float &operator[](const int32_t & index) const;
 
+    void identity();
+
+    void transpose();
+
+    float determinant() const;
+
     Matrix4 operator*(const Matrix4& other) const;
 
-    Matrix4& operator=(const Matrix4& other);
+    Matrix4 operator*(const float& scalar) const;
 
+    Matrix4 operator+(const Matrix4& other) const;
+
+    Matrix4 operator-(const Matrix4& other) const;
+
+    Matrix4& operator=(const Matrix4& other);
 
 };
 
