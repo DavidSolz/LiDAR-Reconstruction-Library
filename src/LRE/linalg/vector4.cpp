@@ -1,4 +1,4 @@
-#include <vector4.hpp>
+#include <LRE/linalg/vector4.hpp>
 
 Vector4::Vector4(const Vector4 &other)
 {

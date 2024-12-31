@@ -1,1 +1,1 @@
-add_subdirectory(linalg)
+add_subdirectory(${PROJECT_NAME})

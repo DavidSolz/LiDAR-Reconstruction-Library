@@ -1,11 +1,18 @@
 set(LIB_NAME lre-linalg)
 
 add_library(${LIB_NAME}
-    vector4.cpp
-    matrix4.cpp
+    ${PROJECT_SOURCE_DIR}/src/LRE/linalg/vector4.cpp
+    ${PROJECT_SOURCE_DIR}/src/LRE/linalg/matrix4.cpp
 )
 
-target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include/linalg)
+add_library(LRE::linalg ALIAS ${LIB_NAME})
+
+target_include_directories(${LIB_NAME} 
+    PUBLIC 
+        ${PROJECT_SOURCE_DIR}/include
+    PRIVATE 
+        ${PROJECT_SOURCE_DIR}/src
+)
 
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-mavx" COMPILER_SUPPORTS_AVX)
