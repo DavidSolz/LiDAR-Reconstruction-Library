@@ -1,4 +1,4 @@
-#include <LRE/linalg/matrix4.hpp>
+#include <matrix4.hpp>
 
 Matrix4::Matrix4(const Matrix4 &other)
 {

@@ -1,0 +1,8 @@
+# Directories
+
+[Bb]uild
+.vscode/
+
+# Files
+
+*.env
