@@ -57,7 +57,7 @@ Vector4 Vector4::normalized() const
         length = 1.0f;
     }
 
-    return Vector4(data_[0], data_[1], data_[2], data_[3])/length;
+    return Vector4(data_[0], data_[1], data_[2], data_[3]) / length;
 }
 
 float Vector4::sqr_magnitude() const
@@ -98,6 +98,41 @@ Vector4 Vector4::operator+(const Vector4 &other) const
 #endif
 
     return result;
+}
+
+Vector4 Vector4::operator*(const Vector4 &other) const
+{
+    Vector4 result;
+
+#ifdef __AVX__
+
+    __m128 reg_a = _mm_loadu_ps(data_);
+    __m128 reg_b = _mm_loadu_ps(other.data_);
+    __m128 reg_c = _mm_mul_ps(reg_a, reg_b);
+    _mm_storeu_ps(result.data_, reg_c);
+
+#else
+
+    result[0] = data_[0] * other.data_[0];
+    result[1] = data_[1] * other.data_[1];
+    result[2] = data_[2] * other.data_[2];
+    result[3] = data_[3] * other.data_[3];
+
+#endif
+
+    return result;
+}
+
+float &Vector4::operator[](const int32_t &index)
+{
+    int32_t clamped_index = std::fmax(0, fmin(index, 3));
+    return data_[clamped_index];
+}
+
+const float &Vector4::operator[](const int32_t &index) const
+{
+    int32_t clamped_index = std::fmax(0, fmin(index, 3));
+    return data_[clamped_index];
 }
 
 Vector4 Vector4::operator-(const Vector4 &other) const
@@ -161,7 +196,7 @@ Vector4 Vector4::operator/(const float &scalar) const
 #ifdef __AVX__
 
     __m128 reg_a = _mm_loadu_ps(data_);
-    __m128 reg_b = _mm_set_ps1( 1.0f/scalar_in_range );
+    __m128 reg_b = _mm_set_ps1(1.0f / scalar_in_range);
     __m128 reg_c = _mm_mul_ps(reg_a, reg_b);
 
     _mm_storeu_ps(result.data_, reg_c);
@@ -231,7 +266,6 @@ float Vector4::dot(const Vector4 &a, const Vector4 &b)
     return a.data_[0] * b.data_[0] + a.data_[1] * b.data_[1] +
            a.data_[2] * b.data_[2] + a.data_[3] * b.data_[3];
 #endif
-
 }
 
 Vector4 Vector4::lerp(const Vector4 &a, const Vector4 &b, float t)

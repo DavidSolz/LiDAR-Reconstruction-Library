@@ -2,6 +2,7 @@
 #define VECTOR4_HPP
 
 #include <cstring>
+#include <stdint.h>
 #include <cmath>
 
 #ifdef __AVX__
@@ -46,6 +47,8 @@ class Vector4
 
     Vector4 operator+(const Vector4 & other) const;
 
+    Vector4 operator*(const Vector4 & other) const;
+
     Vector4 operator-(const Vector4 & other) const;
 
     Vector4 operator*(const float & scalar) const;
@@ -53,6 +56,10 @@ class Vector4
     Vector4 operator/(const float & scalar) const;
 
     Vector4& operator=(const Vector4 & other);
+
+    float& operator[](const int32_t & index);
+
+    const float& operator[](const int32_t & index) const;
 
     Vector4& normalize();
 

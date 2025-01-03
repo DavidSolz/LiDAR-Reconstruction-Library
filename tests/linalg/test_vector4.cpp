@@ -106,6 +106,15 @@ TEST_CASE("Vector4: Arithmetic Operators")
         REQUIRE(result.w() == 3.0f);
     }
 
+    SECTION("Hadamard product")
+    {
+        Vector4 result = vec1 * vec2;
+        for (int32_t i = 0; i < 4; i++)
+        {
+            REQUIRE(result[i] == vec1[i] * vec2[i]);
+        }
+    }
+
     SECTION("Multiplication by Scalar")
     {
         Vector4 result = vec1 * 2.0f;
