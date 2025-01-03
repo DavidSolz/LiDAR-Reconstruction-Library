@@ -2,6 +2,7 @@
 
 [Bb]uild
 [Tt]esting
+_deps
 .vscode/
 
 # Files

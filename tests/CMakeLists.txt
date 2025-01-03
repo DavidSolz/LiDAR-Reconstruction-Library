@@ -15,3 +15,4 @@ include(Catch)
 target_compile_features(Catch2 PRIVATE cxx_std_17)
 
 add_subdirectory(linalg)
+add_subdirectory(datastructs)
