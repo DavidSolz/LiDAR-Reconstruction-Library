@@ -109,7 +109,7 @@ Vector4 Vector4::operator-(const Vector4 &other) const
     __m128 reg_a = _mm_loadu_ps(data_);
     __m128 reg_b = _mm_loadu_ps(other.data_);
     __m128 reg_c = _mm_sub_ps(reg_a, reg_b);
-    
+
     _mm_storeu_ps(result.data_, reg_c);
 
 #else
@@ -133,7 +133,7 @@ Vector4 Vector4::operator*(const float &scalar) const
     __m128 reg_a = _mm_loadu_ps(data_);
     __m128 reg_b = _mm_set_ps1(scalar);
     __m128 reg_c = _mm_mul_ps(reg_a, reg_b);
-    
+
     _mm_storeu_ps(result.data_, reg_c);
 
 #else
@@ -163,7 +163,7 @@ Vector4 Vector4::operator/(const float &scalar) const
     __m128 reg_a = _mm_loadu_ps(data_);
     __m128 reg_b = _mm_set_ps1( 1.0f/scalar_in_range );
     __m128 reg_c = _mm_mul_ps(reg_a, reg_b);
-    
+
     _mm_storeu_ps(result.data_, reg_c);
 
 #else
@@ -213,7 +213,7 @@ float Vector4::distance(const Vector4 &a, const Vector4 &b)
 
 float Vector4::dot(const Vector4 &a, const Vector4 &b)
 {
-    
+
 #ifdef __AVX__
 
     __m128 reg_a = _mm_loadu_ps(a.data_);
@@ -236,7 +236,7 @@ float Vector4::dot(const Vector4 &a, const Vector4 &b)
 
 Vector4 Vector4::lerp(const Vector4 &a, const Vector4 &b, float t)
 {
-    t = std::max(0.0f, std::min(t, 1.0f));
+    t = std::fmax(0.0f, std::fmin(t, 1.0f));
     return a + (b - a) * t;
 }
 
@@ -247,20 +247,20 @@ Vector4 Vector4::lerp_unclamped(const Vector4 &a, const Vector4 &b, const float 
 
 Vector4 Vector4::max(const Vector4 &a, const Vector4 &b)
 {
-    float x = std::max(a.data_[0], b.data_[0]);
-    float y = std::max(a.data_[1], b.data_[1]);
-    float z = std::max(a.data_[2], b.data_[2]);
-    float w = std::max(a.data_[3], b.data_[3]);
+    float x = std::fmax(a.data_[0], b.data_[0]);
+    float y = std::fmax(a.data_[1], b.data_[1]);
+    float z = std::fmax(a.data_[2], b.data_[2]);
+    float w = std::fmax(a.data_[3], b.data_[3]);
 
     return Vector4(x, y, z, w);
 }
 
 Vector4 Vector4::min(const Vector4 &a, const Vector4 &b)
 {
-    float x = std::min(a.data_[0], b.data_[0]);
-    float y = std::min(a.data_[1], b.data_[1]);
-    float z = std::min(a.data_[2], b.data_[2]);
-    float w = std::min(a.data_[3], b.data_[3]);
+    float x = std::fmin(a.data_[0], b.data_[0]);
+    float y = std::fmin(a.data_[1], b.data_[1]);
+    float z = std::fmin(a.data_[2], b.data_[2]);
+    float w = std::fmin(a.data_[3], b.data_[3]);
 
     return Vector4(x, y, z, w);
 }
