@@ -28,9 +28,13 @@ class Matrix4
 
     void identity();
 
-    void transpose();
-
     float determinant() const;
+
+    Matrix4 transposed();
+
+    Matrix4 cofactor() const;
+
+    Matrix4 inverted() const;
 
     Matrix4 operator*(const Matrix4& other) const;
 

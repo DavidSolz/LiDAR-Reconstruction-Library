@@ -129,9 +129,7 @@ TEST_CASE("Matrix4: Transpose")
         mat[i] = static_cast<float>(i + 1);
     }
 
-    Matrix4 copy = mat;
-    mat.transpose();
-
+    Matrix4 transposed_mat = mat.transposed();
 
     SECTION("Transpose of the matrix should swap rows with columns")
     {
@@ -139,7 +137,7 @@ TEST_CASE("Matrix4: Transpose")
         {
             for (int32_t col = 0; col < 4; ++col)
             {
-                REQUIRE(mat[row * 4 + col] == copy[col * 4 + row]);
+                REQUIRE(mat[row * 4 + col] == transposed_mat[col * 4 + row]);
             }
         }
     }
@@ -164,13 +162,35 @@ TEST_CASE("Matrix4: Determinant")
 
     SECTION("Determinant of a non-zero matrix should be calculated correctly")
     {
-        mat[0] = 1.0f; mat[1] = 2.0f; mat[2] = 3.0f; mat[3] = 4.0f;
-        mat[4] = 5.0f; mat[5] = 6.0f; mat[6] = 7.0f; mat[7] = 8.0f;
-        mat[8] = 9.0f; mat[9] = 10.0f; mat[10] = 11.0f; mat[11] = 12.0f;
-        mat[12] = 13.0f; mat[13] = 14.0f; mat[14] = 15.0f; mat[15] = 16.0f;
+        for (int32_t i = 0; i < 16; ++i)
+        {
+            mat[i] = static_cast<float>(i + 1);
+        }
 
         float det = mat.determinant();
         REQUIRE(det == 0.0f);
+    }
+}
+
+TEST_CASE("Matrix4: Cofactor Matrix")
+{
+    Matrix4 mat;
+    Matrix4 result;
+
+    SECTION("Cofactor matrix should yield correct results")
+    {
+
+        for (int32_t i = 0; i < 16; ++i)
+        {
+            mat[i] = static_cast<float>(i + 1);
+        }
+
+        Matrix4 cofactor = mat.cofactor();
+
+        for (int32_t i = 0; i < 16; ++i)
+        {
+            REQUIRE(cofactor[i] == result[i]);
+        }
     }
 }
 
